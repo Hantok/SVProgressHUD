@@ -6,6 +6,7 @@
 //
 
 #import "SVProgressAnimatedView.h"
+#import "SVProgressHUD.h"
 
 @interface SVProgressAnimatedView ()
 
@@ -47,6 +48,18 @@
         _ringAnimatedLayer.lineCap = kCALineCapRound;
         _ringAnimatedLayer.lineJoin = kCALineJoinBevel;
         _ringAnimatedLayer.path = smoothedPath.CGPath;
+        
+        NSBundle *bundle = [NSBundle bundleForClass:[SVProgressHUD class]];
+        NSURL *url = [bundle URLForResource:@"SVProgressHUD" withExtension:@"bundle"];
+        NSBundle *imageBundle = [NSBundle bundleWithURL:url];
+        
+        NSString *path = [imageBundle pathForResource:@"background" ofType:@"png"];
+        UIImage *image = [UIImage imageWithContentsOfFile:path];
+        
+        UIImageView* imageView = [[UIImageView alloc] initWithFrame:[_ringAnimatedLayer frame]];
+        imageView.image = image;
+        
+        [_ringAnimatedLayer addSublayer:imageView.layer];
     }
     return _ringAnimatedLayer;
 }

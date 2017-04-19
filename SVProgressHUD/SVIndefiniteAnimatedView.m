@@ -92,6 +92,14 @@
         animationGroup.animations = @[strokeStartAnimation, strokeEndAnimation];
         [_indefiniteAnimatedLayer addAnimation:animationGroup forKey:@"progress"];
         
+        NSString *imagePath = [imageBundle pathForResource:@"background" ofType:@"png"];
+        UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+        
+        UIImageView* imageView = [[UIImageView alloc] initWithFrame:[_indefiniteAnimatedLayer frame]];
+        imageView.image = image;
+        
+        [_indefiniteAnimatedLayer addSublayer:imageView.layer];
+        
     }
     return _indefiniteAnimatedLayer;
 }
